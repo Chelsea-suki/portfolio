@@ -1,0 +1,1476 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>陈琦 | AI 教育产品经理作品集</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #05060a;
+      --panel: rgba(14, 16, 26, 0.76);
+      --panel-strong: rgba(18, 20, 32, 0.92);
+      --line: rgba(205, 215, 255, 0.16);
+      --line-strong: rgba(215, 225, 255, 0.28);
+      --text: #f5f7ff;
+      --muted: #aab1c7;
+      --soft: #79839f;
+      --blue: #61a8ff;
+      --cyan: #6de7ff;
+      --violet: #b890ff;
+      --green: #66e7b0;
+      --amber: #ffd37a;
+      --red: #ff7787;
+      --radius: 8px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.44);
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.68;
+      letter-spacing: 0;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(64, 167, 255, 0.24), transparent 34rem),
+        radial-gradient(circle at 84% 2%, rgba(163, 92, 255, 0.28), transparent 32rem),
+        radial-gradient(circle at 58% 58%, rgba(77, 255, 190, 0.09), transparent 36rem),
+        linear-gradient(180deg, #05060a 0%, #080914 48%, #05060a 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.23;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 30;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--green));
+      box-shadow: 0 0 18px rgba(116, 214, 255, 0.88);
+    }
+
+    .shell {
+      width: calc(100% - 40px);
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 6, 10, 0.66);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      height: 66px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      color: #f9fbff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(109, 231, 255, 0.22), rgba(184, 144, 255, 0.2));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 28px rgba(116, 159, 255, 0.18);
+      position: relative;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      box-shadow: 0 0 18px rgba(143, 198, 255, 0.68);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      white-space: nowrap;
+      transition: 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 24px rgba(113, 148, 255, 0.18);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      padding: 104px 0 74px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 8% -18% auto auto;
+      width: 720px;
+      height: 420px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, rgba(84, 174, 255, 0.26), rgba(190, 120, 255, 0.28), rgba(79, 255, 190, 0.12));
+      filter: blur(84px);
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: block;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      color: #dfe7ff;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: rgba(255, 255, 255, 0.045);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      font-size: 13px;
+    }
+
+    .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px var(--green);
+    }
+
+    h1 {
+      max-width: none;
+      margin: 26px 0 22px;
+      font-size: clamp(44px, 7.4vw, 92px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .gradient-text {
+      display: inline;
+      color: transparent;
+      background: linear-gradient(110deg, #ffffff 8%, #b9d5ff 32%, #c5a6ff 60%, #84f0d2 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: 0 0 42px rgba(160, 176, 255, 0.12);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .gradient-text span {
+      display: block;
+      color: transparent;
+      background: linear-gradient(110deg, #ffffff 8%, #b9d5ff 32%, #c5a6ff 60%, #84f0d2 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      max-width: 960px;
+      margin: 0;
+      color: #cbd2e7;
+      font-size: clamp(17px, 2vw, 21px);
+      overflow-wrap: anywhere;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .btn.primary {
+      border-color: rgba(109, 231, 255, 0.36);
+      background: linear-gradient(135deg, rgba(63, 151, 255, 0.26), rgba(174, 115, 255, 0.22));
+      box-shadow: 0 0 34px rgba(101, 154, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.085);
+    }
+
+    .glass,
+    .project,
+    .media-frame,
+    .toc-card,
+    .flow-node,
+    .metric-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(22px);
+    }
+
+    .hero-grid > *,
+    .project-header > *,
+    .content-grid > *,
+    .toc-grid > *,
+    .media-grid > *,
+    .prototype-strip > *,
+    .metrics > *,
+    .flow > *,
+    .metrics > *,
+    .flow > * {
+      min-width: 0;
+    }
+
+    .project::before,
+    .toc-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.11) 44%, transparent 58%);
+      transform: translateX(-120%);
+      animation: sheen 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sheen {
+      0%, 52% { transform: translateX(-120%); }
+      72%, 100% { transform: translateX(120%); }
+    }
+
+    .badge-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: #dce4ff;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .section {
+      padding: 76px 0;
+      scroll-margin-top: 88px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 26px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4.8vw, 54px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .toc-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 254px;
+      border-radius: 8px;
+      padding: 22px;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .toc-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--line-strong);
+      background: rgba(22, 25, 40, 0.88);
+    }
+
+    .toc-index {
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .toc-card h3 {
+      margin: 18px 0 12px;
+      font-size: 22px;
+      line-height: 1.24;
+    }
+
+    .toc-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .toc-card footer {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #dce6ff;
+      font-size: 13px;
+    }
+
+    .project {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      padding: 34px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)),
+        var(--panel);
+    }
+
+    .project + .project {
+      margin-top: 34px;
+    }
+
+    .project-header {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(320px, 0.68fr);
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+
+    .project-number {
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .project h3 {
+      margin: 8px 0 14px;
+      font-size: clamp(28px, 4.2vw, 46px);
+      line-height: 1.12;
+    }
+
+    .project-lead {
+      max-width: 760px;
+      margin: 0;
+      color: #cdd5e9;
+      font-size: 17px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .insight-panel {
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 8px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .insight-panel + .insight-panel {
+      margin-top: 12px;
+    }
+
+    .insight-panel h4,
+    .content-block h4,
+    .metric-card h4,
+    .media-frame h4 {
+      margin: 0 0 10px;
+      color: #f4f7ff;
+      font-size: 16px;
+    }
+
+    .insight-panel p,
+    .content-block p,
+    .metric-card p,
+    .media-frame p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .case-overview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin: 22px 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .case-overview section {
+      padding: 18px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .case-overview section:last-child {
+      border-right: 0;
+    }
+
+    .case-overview h4 {
+      margin: 0 0 10px;
+      color: #f4f7ff;
+      font-size: 15px;
+    }
+
+    .case-overview ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .case-overview li {
+      margin: 7px 0;
+    }
+
+    .content-block {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .content-block ul,
+    .metric-card ul,
+    .interview-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content-block li,
+    .metric-card li,
+    .interview-list li {
+      margin: 7px 0;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .media-grid.three {
+      grid-template-columns: 1.25fr 0.75fr;
+    }
+
+    .media-frame {
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .media-frame.wide {
+      grid-column: 1 / -1;
+    }
+
+    .media-copy {
+      padding: 16px 18px 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .media-title {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .media-title h4 {
+      margin: 0;
+      color: #f4f7ff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .media-click {
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+    }
+
+    .media-click img {
+      width: 100%;
+      height: auto;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .media-frame video {
+      width: 100%;
+      max-height: 620px;
+      background: #000;
+    }
+
+    .media-frame.video-centered {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: min(760px, 100%);
+    }
+
+    .prototype-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .prototype-strip button {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 8px;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.035);
+      cursor: zoom-in;
+    }
+
+    .prototype-strip img {
+      width: 100%;
+      aspect-ratio: 1.36;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 220ms ease;
+    }
+
+    .prototype-strip button:hover img {
+      transform: scale(1.03);
+    }
+
+    .prototype-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .prototype-gallery button {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 8px;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.035);
+      cursor: zoom-in;
+    }
+
+    .prototype-gallery img {
+      width: 100%;
+      aspect-ratio: 1.36;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 220ms ease;
+    }
+
+    .prototype-gallery button:hover img {
+      transform: scale(1.03);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .metric-card {
+      border-radius: 8px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .metric-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 26px;
+      line-height: 1.1;
+      color: #ffffff;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .flow-node {
+      position: relative;
+      min-height: 112px;
+      border-radius: 8px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .flow-node:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -9px;
+      width: 16px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(109, 231, 255, 0.18), rgba(184, 144, 255, 0.8));
+      box-shadow: 0 0 12px rgba(158, 184, 255, 0.6);
+    }
+
+    .flow-node span {
+      display: block;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .flow-node strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .flow-node p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.48;
+    }
+
+    .details {
+      margin-top: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+      overflow: hidden;
+    }
+
+    .details summary {
+      cursor: pointer;
+      padding: 15px 18px;
+      color: #edf2ff;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .details summary::after {
+      content: "+";
+      float: right;
+      color: var(--cyan);
+    }
+
+    .details[open] summary::after {
+      content: "-";
+    }
+
+    .details-body {
+      padding: 0 18px 18px;
+    }
+
+    .interview {
+      margin-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 22px;
+    }
+
+    .interview h4 {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .footer {
+      padding: 58px 0 72px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 28;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      color: #fff;
+      background: rgba(15, 17, 27, 0.78);
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(14px);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: 180ms ease;
+    }
+
+    .back-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 26px;
+      background: rgba(3, 4, 8, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox figure {
+      width: min(1280px, 96vw);
+      max-height: 92vh;
+      margin: 0;
+    }
+
+    .lightbox img {
+      width: 100%;
+      max-height: 84vh;
+      object-fit: contain;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: var(--shadow);
+    }
+
+    .lightbox figcaption {
+      margin-top: 10px;
+      color: #d7def3;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .close-lightbox {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        width: calc(100% - 28px);
+        max-width: 760px;
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        height: auto;
+        padding: 12px 0;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 58px;
+      }
+
+      .hero-grid,
+      .project-header,
+      .content-grid,
+      .case-overview,
+      .toc-grid,
+      .media-grid,
+      .media-grid.three,
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .case-overview section {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .case-overview section:last-child {
+        border-bottom: 0;
+      }
+
+      .flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .flow-node:not(:last-child)::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: calc(100% - 22px);
+        max-width: 440px;
+      }
+
+      .hero {
+        padding-bottom: 48px;
+      }
+
+      .hero-actions,
+      .section-head {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .badge-stack {
+        align-items: flex-start;
+      }
+
+      .flow,
+      .prototype-strip,
+      .prototype-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .project {
+        padding: 20px;
+      }
+
+      .toc-card {
+        min-height: 220px;
+      }
+
+      h1 {
+        font-size: 36px;
+        line-height: 1.12;
+        word-break: break-all;
+      }
+
+      .gradient-text {
+        display: block;
+        word-break: break-all;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <nav class="nav" aria-label="作品集导航">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>陈琦 · AI 教育产品</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#paper">试卷分析</a>
+        <a href="#state">状态建模</a>
+        <a href="#correction">错因订正</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="shell hero-grid">
+      <div>
+        <h1>
+          <span class="gradient-text">
+            <span>让 AI 参与学习理解</span>
+            <span>决策与互动闭环</span>
+          </span>
+        </h1>
+        <p class="lead">围绕K12 个性化学习场景，本作品集展示从时间识别、学情诊断、状态建模到错因订正的产品方案。</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#catalog">查看项目目录</a>
+          <a class="btn" href="#paper">从第一项开始</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="catalog">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>PROJECT INDEX</h2>
+          </div>
+        </div>
+        <div class="toc-grid">
+          <a class="toc-card" href="#paper">
+            <span class="toc-index">01 / Diagnosis</span>
+            <h3>试卷分析与学情诊断</h3>
+            <p>从单题、整卷、PDF 输入，到 OCR、RAG、知识点关联、能力评估和内容推荐。</p>
+            <footer><span>AI 学情理解</span><span>跳转</span></footer>
+          </a>
+          <a class="toc-card" href="#state">
+            <span class="toc-index">02 / Interaction</span>
+            <h3>学生状态建模与学习互动</h3>
+            <p>用行为数据量化专注、流畅、准确、习惯、反思，并驱动学生端与教师端互动。</p>
+            <footer><span>状态识别</span><span>跳转</span></footer>
+          </a>
+          <a class="toc-card" href="#correction">
+            <span class="toc-index">03 / Correction</span>
+            <h3>错因分析与精准订正</h3>
+            <p>把“哪里错”推进到“为什么错、如何改、是否真的改对”的闭环。</p>
+            <footer><span>错因闭环</span><span>跳转</span></footer>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="paper">
+      <div class="shell">
+        <article class="project">
+          <div class="project-header">
+            <div>
+              <div class="project-number">01 / 试卷分析与学情诊断</div>
+              <h3>从学习材料识别，到 AI 驱动的学情决策</h3>
+              <div class="chips">
+                <span class="tag">OCR 识别</span>
+                <span class="tag">知识图谱 + RAG</span>
+                <span class="tag">大模型语义理解</span>
+                <span class="tag">学习内容推荐</span>
+                <span class="tag">异步体验</span>
+              </div>
+            </div>
+            <div>
+              <div class="insight-panel">
+                <h4>项目简介</h4>
+                <p>这个项目从“图片识别”演化为完整的学情诊断系统：学生上传单题、整页试卷或 PDF 后，系统完成题目结构化、知识点关联、错因分析、能力评估，并进一步生成学习策略与内容推荐。</p>
+              </div>
+              <div class="insight-panel">
+                <h4>我的角色</h4>
+                <p>负责学情诊断后的学习策略设计、错因分析与内容推荐逻辑、AI 学情结果向学习规划的转化，以及异步分析流程和等待体验优化。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-overview">
+            <section>
+              <h4>问题定义</h4>
+              <ul>
+                <li>老师需要快速定位整卷薄弱点，而不是只看到单题解析。</li>
+                <li>学生需要知道“该不该学、先学什么、怎么补”。</li>
+                <li>AI 分析链路较长，需要把等待过程设计成可理解状态。</li>
+              </ul>
+            </section>
+            <section>
+              <h4>AI 能力链路</h4>
+              <ul>
+                <li>OCR 提取题目、选项、条件与作答内容。</li>
+                <li>RAG 和知识图谱定位知识元，补足模型上下文。</li>
+                <li>大模型完成语义理解、错因判断和学习建议表达。</li>
+              </ul>
+            </section>
+            <section>
+              <h4>策略思维</h4>
+              <ul>
+                <li>推荐不只看错题，还结合已学/未学、掌握情况和能力水平。</li>
+                <li>把学情诊断从“对错统计”升级为“下一步学习决策”。</li>
+                <li>阶段化返回结果，降低等待焦虑和结果黑盒感。</li>
+              </ul>
+            </section>
+          </div>
+
+          <div class="media-grid three">
+            <div class="media-frame wide">
+              <div class="media-title">
+                <h4>架构图：从学习材料到学习策略的完整链路</h4>
+              </div>
+              <button class="media-click" type="button" data-full="试卷分析与学情诊断/试卷分析的产品架构.png" data-caption="试卷分析与学情诊断产品架构">
+                <img src="试卷分析与学情诊断/试卷分析的产品架构.png" alt="试卷分析与学情诊断产品架构图" loading="lazy">
+              </button>
+            </div>
+            <div class="media-frame">
+              <div class="media-title">
+                <h4>图片识别结果页</h4>
+              </div>
+              <button class="media-click" type="button" data-full="试卷分析与学情诊断/图片识别结果页.png" data-caption="整页识别后的知识元推荐结果">
+                <img src="试卷分析与学情诊断/图片识别结果页.png" alt="整页识别后的知识元推荐结果页" loading="lazy">
+              </button>
+            </div>
+            <div class="media-frame">
+              <div class="media-copy">
+                <h4>技术策略：用 RAG 约束诊断依据</h4>
+                <p>教育场景不能只依赖大模型“自由生成”。该方案把教材、知识图谱、题目解析和当前学习范围作为检索依据，让模型先找到相关知识元和可参考材料，再输出错因、能力判断与学习建议，从而减少泛化回答，提升诊断的一致性和可解释性。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics">
+            <div class="metric-card"><strong>95%</strong><p>试卷/作业图片识别与知识点匹配准确率。</p></div>
+            <div class="metric-card"><strong>70%</strong><p>教师单次试卷分析耗时缩短。</p></div>
+          </div>
+
+          <div class="interview">
+            <h4>产品亮点</h4>
+            <ul class="interview-list">
+              <li>把 AI 能力拆成“识别、关联、诊断、决策、推荐”五段，而不是把模型当单点功能。</li>
+              <li>推荐策略同时考虑知识点、学生历史、已学未学和能力维度，体现教育产品的决策约束。</li>
+              <li>异步处理和阶段化反馈让长链路分析更可控，也更接近真实用户体验。</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="state">
+      <div class="shell">
+        <article class="project">
+          <div class="project-header">
+            <div>
+              <div class="project-number">02 / 学生状态建模与学习互动</div>
+              <h3>把学习过程中的状态，变成可触发的互动事件</h3>
+              <div class="chips">
+                <span class="tag">行为数据建模</span>
+                <span class="tag">五维状态评分</span>
+                <span class="tag">关键事件识别</span>
+                <span class="tag">情绪安抚</span>
+                <span class="tag">教师联动</span>
+              </div>
+            </div>
+            <div>
+              <div class="insight-panel">
+                <h4>项目简介</h4>
+                <p>项目目标是通过学习行为数据理解学生“怎么学”。系统从作答、思考、卡顿、操作、订正等过程数据中提取特征，形成专注、流畅、准确、习惯、反思五个维度的状态评估，并识别关键事件来驱动学生端即时互动与教师端联动。</p>
+              </div>
+              <div class="insight-panel">
+                <h4>我的角色</h4>
+                <p>参与模型整体设计与指标体系搭建，定义各维度指标、计算规则、权重策略、关键事件触发逻辑，并设计模型结果在产品中的可视化与交互呈现。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-overview">
+            <section>
+              <h4>问题定义</h4>
+              <ul>
+                <li>传统产品只能看到对错，难以理解学生为什么学不动。</li>
+                <li>老师需要课后判断学生学习质量，而不是只看完成率。</li>
+                <li>学生需要在关键时刻获得轻量反馈，不被频繁打扰。</li>
+              </ul>
+            </section>
+            <section>
+              <h4>建模框架</h4>
+              <ul>
+                <li>采集时长、间隔、超时、点击、滑动、停留、正确/错误、订正等行为特征。</li>
+                <li>沉淀专注、流畅、准确、习惯、反思五个状态维度。</li>
+                <li>识别被难住、难题做对、走神、高反思等关键事件。</li>
+              </ul>
+            </section>
+            <section>
+              <h4>互动策略</h4>
+              <ul>
+                <li>难题做对时给即时鼓励，强化努力与成就感。</li>
+                <li>被难住时提供安抚、提示或教师支持，而不是直接打断。</li>
+                <li>通过“飞鸽传书”等机制让老师参与关键时刻。</li>
+              </ul>
+            </section>
+          </div>
+
+          <div class="media-grid">
+            <div class="media-frame wide">
+              <div class="media-title">
+                <h4>架构图：从学习行为到关键事件识别</h4>
+              </div>
+              <button class="media-click" type="button" data-full="学生状态建模与学习互动/学生状态建模.png" data-caption="学习状态建模系统架构">
+                <img src="学生状态建模与学习互动/学生状态建模.png" alt="学习状态建模系统架构图" loading="lazy">
+              </button>
+            </div>
+            <div class="media-frame video-centered">
+              <div class="media-title">
+                <h4>语音交互场景：崩溃安抚</h4>
+              </div>
+              <video controls preload="metadata" src="学生状态建模与学习互动/语音交互场景：小括狐崩溃安抚.mp4"></video>
+            </div>
+            <div class="media-frame wide">
+              <div class="media-copy">
+                <h4>非语音交互场景原型图展示</h4>
+                <p>设计难题做对、被难住 2 个关键事件场景。</p>
+              </div>
+              <div class="prototype-gallery">
+                <button type="button" data-full="学生状态建模与学习互动/难题做对 1.jpg" data-caption="难题做对后的即时鼓励"><img src="学生状态建模与学习互动/难题做对 1.jpg" alt="难题做对后的即时鼓励" loading="lazy"></button>
+                <button type="button" data-full="学生状态建模与学习互动/难题做对 2.jpg" data-caption="难题做对后的反馈状态 2"><img src="学生状态建模与学习互动/难题做对 2.jpg" alt="难题做对后的反馈状态 2" loading="lazy"></button>
+                <button type="button" data-full="学生状态建模与学习互动/难题做对 3.jpg" data-caption="难题做对后的反馈状态 3"><img src="学生状态建模与学习互动/难题做对 3.jpg" alt="难题做对后的反馈状态 3" loading="lazy"></button>
+                <button type="button" data-full="学生状态建模与学习互动/难题做对 4.png" data-caption="难题做对后的反馈状态 4"><img src="学生状态建模与学习互动/难题做对 4.png" alt="难题做对后的反馈状态 4" loading="lazy"></button>
+                <button type="button" data-full="学生状态建模与学习互动/被难住 1.jpg" data-caption="被难住时的互动入口"><img src="学生状态建模与学习互动/被难住 1.jpg" alt="被难住时的互动入口" loading="lazy"></button>
+                <button type="button" data-full="学生状态建模与学习互动/被难住 2.jpg" data-caption="被难住时的安抚与引导"><img src="学生状态建模与学习互动/被难住 2.jpg" alt="被难住时的安抚与引导" loading="lazy"></button>
+                <button type="button" data-full="学生状态建模与学习互动/飞鸽传书 1.jpg" data-caption="教师飞鸽传书互动"><img src="学生状态建模与学习互动/飞鸽传书 1.jpg" alt="教师飞鸽传书互动" loading="lazy"></button>
+                <button type="button" data-full="学生状态建模与学习互动/飞鸽传书 2.jpg" data-caption="教师飞鸽传书反馈"><img src="学生状态建模与学习互动/飞鸽传书 2.jpg" alt="教师飞鸽传书反馈" loading="lazy"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics">
+            <div class="metric-card"><strong>5</strong><p>专注、流畅、准确、习惯、反思五维评分。</p></div>
+            <div class="metric-card"><strong>90%+</strong><p>状态评分与教师判断一致性。</p></div>
+            <div class="metric-card"><strong>88%</strong><p>“被难住”事件识别准确率。</p></div>
+            <div class="metric-card"><strong>35%</strong><p>上线后教师对关键学习时刻响应率提升。</p></div>
+          </div>
+
+          <div class="interview">
+            <h4>产品亮点</h4>
+            <ul class="interview-list">
+              <li>从“会不会”扩展到“怎么学”，体现对学习过程数据的产品化理解。</li>
+              <li>关键事件不是单纯模型输出，而是和触发条件、优先级、兜底逻辑共同构成产品策略。</li>
+              <li>互动设计兼顾学生情绪和教师介入，避免 AI 频繁打扰学习节奏。</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="correction">
+      <div class="shell">
+        <article class="project">
+          <div class="project-header">
+            <div>
+              <div class="project-number">03 / 错因分析与精准订正</div>
+              <h3>从“看解析”，升级为“知道错因并完成有效订正”</h3>
+              <div class="chips">
+                <span class="tag">错因分类</span>
+                <span class="tag">AI 批注</span>
+                <span class="tag">苏格拉底式引导</span>
+                <span class="tag">有效订正判定</span>
+              </div>
+            </div>
+            <div>
+              <div class="insight-panel">
+                <h4>项目简介</h4>
+                <p>项目围绕学生做错题后的真实问题展开：如何知道自己错在哪、为什么错、怎么改对。产品将学科专家的错因介入方法产品化，定义达标错因、有效订正等标准，支持错处圈画、过程补全、具体错因追问和 AI 启发式答后对话。</p>
+              </div>
+              <div class="insight-panel">
+                <h4>我的角色</h4>
+                <p>负责项目立项与方案设计，围绕“错后反思环节”定义关键标准、Prompt 规则、交互流程和判断指标，推动错题订正从“看解析”升级为“完成具体错因定位与有效订正”。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-overview">
+            <section>
+              <h4>问题定义</h4>
+              <ul>
+                <li>学生经常知道答案错了，但不知道错在知识、方法、审题还是计算。</li>
+                <li>直接给答案会降低思考，订正质量难以验证。</li>
+                <li>AI 讲题必须控制内容边界，避免过度发散或超纲。</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Prompt 策略</h4>
+              <ul>
+                <li>优先根据 answer_status 判断学生状态。</li>
+                <li>只围绕一个主要错因展开，不机械复述 error_description。</li>
+                <li>防止学生绕过思考直接要答案，先拉回一个关键判断。</li>
+              </ul>
+            </section>
+            <section>
+              <h4>交互策略</h4>
+              <ul>
+                <li>支持“看看我的错因”“从第一步开始讲题”“给我一点提示”等入口。</li>
+                <li>用错处圈画和过程补全让错因可视化。</li>
+                <li>把订正结果回流到后续练习和学习建议。</li>
+              </ul>
+            </section>
+          </div>
+
+          <div class="content-block">
+            <h4>错因订正闭环架构图</h4>
+            <div class="flow" aria-label="错因订正闭环架构">
+              <div class="flow-node"><span>01</span><strong>学生答案 / 过程证据</strong><p>采集答案、草稿、圈画、作答时长和订正行为。</p></div>
+              <div class="flow-node"><span>02</span><strong>错因识别</strong><p>定位知识缺失、概念混淆、思路错误、计算错误等。</p></div>
+              <div class="flow-node"><span>03</span><strong>订正策略</strong><p>按错因类型选择提示、追问、过程补全或相似题。</p></div>
+              <div class="flow-node"><span>04</span><strong>AI 对话引导</strong><p>每轮只推进一个关键判断，避免直接泄答案。</p></div>
+              <div class="flow-node"><span>05</span><strong>有效订正判定</strong><p>判断是否真正修正错误过程，而不是只改最终答案。</p></div>
+              <div class="flow-node"><span>06</span><strong>学习建议回流</strong><p>把错因和订正结果用于后续内容推荐与巩固练习。</p></div>
+            </div>
+          </div>
+
+          <div class="media-grid">
+            <div class="media-frame">
+              <div class="media-title">
+                <h4>案例：定位数值错误</h4>
+              </div>
+              <button class="media-click" type="button" data-full="错因分析与精准订正/精准错因分析 1.png" data-caption="AI 批注：数值错误">
+                <img src="错因分析与精准订正/精准错因分析 1.png" alt="AI 批注数值错误案例" loading="lazy">
+              </button>
+              <div class="media-copy">
+                <p>AI 在学生书写过程上直接圈画错处，并给出简洁错因说明。</p>
+              </div>
+            </div>
+            <div class="media-frame">
+              <div class="media-title">
+                <h4>案例：定位方法错误</h4>
+              </div>
+              <button class="media-click" type="button" data-full="错因分析与精准订正/精准错因分析 2.png" data-caption="AI 批注：方法错误与过程错误">
+                <img src="错因分析与精准订正/精准错因分析 2.png" alt="AI 批注方法错误案例" loading="lazy">
+              </button>
+              <div class="media-copy">
+                <p>不只指出结果错误，还解释错误发生在“如何理解题意和建模”的步骤。</p>
+              </div>
+            </div>
+            <div class="media-frame wide">
+              <div class="media-title">
+                <h4>语音交互场景：AI圈错因</h4>
+              </div>
+              <video controls preload="metadata" src="错因分析与精准订正/语音交互场景-小括狐错处圈画.mp4"></video>
+            </div>
+          </div>
+
+          <details class="details" open>
+            <summary>非语音交互场景：AI 错后聊</summary>
+            <div class="details-body">
+              <div class="media-frame">
+                <div class="media-title">
+                  <h4>长视频：答后 AI 检查与讲题助手</h4>
+                </div>
+                <video controls preload="metadata" src="错因分析与精准订正/ai 错后聊.m4v"></video>
+                <div class="media-copy">
+                  <p>展示完整对话链路：状态判断、错因追问、提示控制、防跳答案和总结反馈。</p>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <div class="metrics">
+            <div class="metric-card"><strong>97%</strong><p>小学数学场景下 AI 错因分析准确率。</p></div>
+            <div class="metric-card"><strong>6%</strong><p>学生满意度提升。</p></div>
+            <div class="metric-card"><strong>80%</strong><p>有效订正判定准确率。</p></div>
+            <div class="metric-card"><strong>30%</strong><p>出门测正确率提升。</p></div>
+          </div>
+
+          <div class="interview">
+            <h4>产品亮点</h4>
+            <ul class="interview-list">
+              <li>将学科专家的“错因介入方法”转译成产品标准、Prompt 规则和交互入口。</li>
+              <li>用“每次只解决一个关键点”的对话策略控制 AI 讲题边界，兼顾启发性和准确性。</li>
+              <li>把错因和有效订正判定作为可评估指标，说明 AI 功能如何被验证和迭代。</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <p>portfolio · Chelsea</p>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" type="button" aria-label="返回顶部">↑</button>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="素材预览">
+    <button class="close-lightbox" id="closeLightbox" type="button" aria-label="关闭预览">×</button>
+    <figure>
+      <img id="lightboxImage" src="" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    const progressBar = document.getElementById("progressBar");
+    const backTop = document.getElementById("backTop");
+    const navLinks = Array.from(document.querySelectorAll("#navLinks a"));
+    const sections = navLinks.map((link) => document.querySelector(link.getAttribute("href")));
+
+    function updateScrollUI() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
+      backTop.classList.toggle("show", scrollTop > 640);
+
+      let current = sections[0];
+      sections.forEach((section) => {
+        if (section && section.getBoundingClientRect().top <= 140) current = section;
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", current && link.getAttribute("href") === `#${current.id}`);
+      });
+    }
+
+    window.addEventListener("scroll", updateScrollUI, { passive: true });
+    window.addEventListener("resize", updateScrollUI);
+    updateScrollUI();
+
+    backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxCaption = document.getElementById("lightboxCaption");
+    const closeLightbox = document.getElementById("closeLightbox");
+
+    function openLightbox(src, caption) {
+      lightboxImage.src = src;
+      lightboxImage.alt = caption || "素材预览";
+      lightboxCaption.textContent = caption || "";
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePreview() {
+      lightbox.classList.remove("open");
+      lightboxImage.src = "";
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll("[data-full]").forEach((trigger) => {
+      trigger.addEventListener("click", () => openLightbox(trigger.dataset.full, trigger.dataset.caption));
+    });
+
+    closeLightbox.addEventListener("click", closePreview);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closePreview();
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("open")) closePreview();
+    });
+  </script>
+</body>
+</html>
